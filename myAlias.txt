@@ -6,21 +6,21 @@ dockerRunFunction(){
   echo "run $1 docker"
   
   docker run -it --rm \
-  	     --gpus all \
-             -v /mnt/c/Users/Eric/Documents/src:$HOME/src\
-	     --name vehicle \
+             --gpus all \
+             -v /home/zerontech-self-pc1/lidarcnn:$HOME/src\
+             -v /media/zerontech-self-pc1/extra_disk1/data:$HOME/data\
              --env="DISPLAY" \
-	     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-	     $1 \
+             --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+             $1 \
              /bin/bash
 }
+
 dockerBuildFunction(){
   echo "build $1 docker"
   
   docker build -t $1 --build-arg HOST_USER=$USER .
 }
 
-alias docker_wy_allremove='docker stop $(docker ps -a -q) &&  docker rm $(docker ps -a -q) && docker rmi $(docker images -q)' 
 alias runDocker=dockerRunFunction
 alias buildDocker=dockerBuildFunction
 
